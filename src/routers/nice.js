@@ -6,6 +6,7 @@ const router = express.Router()
 const { NICE } = require('../api/index')
 
 router.post('/auth', async (req, res) => {
+  console.log('auth url 들어옴')
   const resData = await NICE.getTEIData()
   res.json(resData)
 })
