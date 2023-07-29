@@ -27,7 +27,9 @@ app.use((err, req, res, next) => {
   res.statusCode = err.statusCode || 500
   res.send(err.message)
 })
-
+setInterval(() => {
+  console.log(123123)
+}, 1000)
 app.listen(PORT, () => {
   console.log(`PORT = ${PORT}`)
 })
