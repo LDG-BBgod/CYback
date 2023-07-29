@@ -19,9 +19,6 @@ const model = (() => {
   for (const key in schema) {
     models[key] = mongoose.model(key, schema[key])
   }
-  setInterval(() => {
-    console.log('몽고디비 접속완료')
-  }, 2000)
 
   return models
 })()
