@@ -8,8 +8,11 @@ const { getToken } = require('../api/token')
 const router = express.Router()
 const cache = new NodeCache({ stdTTL: 180 })
 
-router.get('/', async(req,res) => {
-  res.send('/phone url 접속성공')
+router.get('/', async (req, res) => {
+  res.send('/phone url get접속성공')
+})
+router.post('/', async (req, res) => {
+  res.send('/phone url post접속성공')
 })
 
 router.post('/verify', async (req, res) => {
