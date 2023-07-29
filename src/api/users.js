@@ -11,6 +11,7 @@ const { User } = require('../mongoose/model')
 const { checkToken, getToken } = require('./token')
 
 const userCreate = async (req, res) => {
+  console.log('usercreate들어옴')
   const { name, nickName, password, phone, fsm, bsm, email } = req.body
   const token = getToken(phone)
   const newUser = await User({
