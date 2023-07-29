@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/verify', async (req, res) => {
+  console.log('post phone/verify')
   const phoneNumber = req.body.phone
 
   const verificationCode = Math.floor(100000 + Math.random() * 900000)
@@ -33,6 +34,7 @@ router.post('/verify', async (req, res) => {
 })
 
 router.post('/check', async (req, res) => {
+  console.log('post phone/check')
   const phoneNumber = req.body.phone
   const verificationCode = req.body.authNum
   const cachedCode = cache.get(phoneNumber)

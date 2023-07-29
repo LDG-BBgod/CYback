@@ -6,12 +6,13 @@ const router = express.Router()
 const { NICE } = require('../api/index')
 
 router.post('/auth', async (req, res) => {
-  console.log('auth url 들어옴')
+  console.log('post nice/auth')
   const resData = await NICE.getTEIData()
   res.json(resData)
 })
 
 router.post('/decrypt', async (req, res) => {
+  console.log('post nice/decrypt')
   const data = await NICE.decryptURL(req.body.url)
   const resData = {
     name: data.name,

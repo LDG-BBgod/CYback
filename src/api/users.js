@@ -11,7 +11,7 @@ const { User } = require('../mongoose/model')
 const { checkToken, getToken } = require('./token')
 
 const userCreate = async (req, res) => {
-  console.log('usercreate들어옴')
+  console.log('post user/create')
   const { name, nickName, password, phone, fsm, bsm, email } = req.body
   const token = getToken(phone)
   const newUser = await User({
@@ -44,6 +44,7 @@ const userCreate = async (req, res) => {
 }
 
 const userRead = async (req, res) => {
+  console.log('post user/read')
   const phone = req.body.phone
   const token = req.body.token
   const user = await User.findOne({ phone: phone })
@@ -105,6 +106,7 @@ const userDelete = async (req, res) => {
 }
 
 const userLogin = async (req, res) => {
+  console.log('post user/login')
   const phone = req.body.phone
   const user = await User.findOne({ phone: phone })
 
