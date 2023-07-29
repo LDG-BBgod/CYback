@@ -28,8 +28,11 @@ app.use((err, req, res, next) => {
   res.send(err.message)
 })
 
+const test2 = () => {
+  console.log('서버실행중')
+}
+setInterval(test2, 2000)
+
 app.listen(PORT, () => {
-  console.log()
-  console.log(new Date().toLocaleString('ko-KR'))
   console.log(`PORT = ${PORT}`)
 })
