@@ -133,10 +133,12 @@ async function getEncryptOauthToken() {
 
 // 토큰, enc, integrity 얻기
 async function getTEIData() {
+  console.log('나이스 키 생성')
   let returnData = null
   // 토큰발급이 안된경우
   if (!cryptoToken.getTokenVersionId()) {
     returnData = await getEncryptOauthToken()
+    console.log('토큰미발급 :', returnData)
   } else {
     const now = new Date()
     const validToken =
@@ -148,9 +150,11 @@ async function getTEIData() {
         encData: cryptoToken.getEncData(),
         integrityValue: cryptoToken.getIntegrityValue(),
       }
+      console.log('유효한토큰 :', returnData)
       // 토큰 유효기간이 유효하지 않은경우
     } else {
       returnData = await getEncryptOauthToken()
+      console.log('유효하지 않은 토큰 :', returnData)
     }
   }
   return returnData
