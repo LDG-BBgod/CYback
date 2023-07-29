@@ -29,7 +29,7 @@ app.use((err, req, res, next) => {
 })
 
 const test2 = () => {
-  console.log('서버실행중')
+  console.log('서버실행중 : ', PORT )
 }
 setInterval(test2, 2000)
 
