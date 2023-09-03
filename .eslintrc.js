@@ -13,5 +13,8 @@ module.exports = {
     'no-unused-vars': 'off',
     'prefer-destructuring': 'off',
     'prefer-template': 'off',
+    'no-await-in-loop': 'off',
+    'no-case-declarations': 'off',
+    'no-unneeded-ternary': 'off'
   },
 }

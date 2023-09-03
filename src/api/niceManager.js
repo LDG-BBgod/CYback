@@ -47,8 +47,6 @@ class CryptoToken {
   getIssDate() {
     return this.issDate
   }
-
-
 }
 
 const cryptoToken = new CryptoToken()

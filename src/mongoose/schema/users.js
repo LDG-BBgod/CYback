@@ -9,11 +9,14 @@ const User = new mongoose.Schema({
   phone: { type: String, default: '', required: true },
   fsm: { type: String, default: '', required: true, unique: true },
   bsm: { type: String, default: '', required: true, unique: true },
-  email: { type: String, default: '', required: true },
+  email: { type: String, default: 'false', required: true },
+  emailVerify: { type: String, default: '', required: true },
   point: { type: Number, default: 0, required: true },
   profilePath: { type: String, default: '', required: false },
   token: { type: String, default: '', required: false },
   register: { type: Date, default: Date.now, required: true },
+  nickNameRegister: { type: Date, default: Date.now, required: true },
+  uniqueId: { type: String, default: '', required: true, unique: true },
 })
 
 User.virtual('password').set(function (password) {

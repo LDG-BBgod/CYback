@@ -15,7 +15,26 @@ const checkToken = async (dbToken, appToken) => {
   }
 }
 
+const createId = async () => {
+  let isUniqueIdUnique = false
+  let randomNumber = ''
+
+  while (!isUniqueIdUnique) {
+    randomNumber = Math.floor(
+      1000000000 + Math.random() * 9000000000
+    ).toString()
+    const existingUser = await User.findOne({
+      uniqueId: randomNumber,
+    })
+    if (!existingUser) {
+      isUniqueIdUnique = true
+    }
+  }
+  return randomNumber
+}
+
 module.exports = {
   getToken,
   checkToken,
+  createId
 }

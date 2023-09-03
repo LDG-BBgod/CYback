@@ -6,6 +6,7 @@ const cors = require('cors')
 const userRouter = require('./routers/users')
 const phoneVerifyRouter = require('./routers/phoneVerify')
 const niceRouter = require('./routers/nice')
+const emailVerifyRouter = require('./routers/emailVerify')
 
 const app = express()
 const PORT = 5000
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter)
 app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
+app.use('/email', emailVerifyRouter)
 
 app.use((err, req, res, next) => {
   res.statusCode = err.statusCode || 500

@@ -6,19 +6,17 @@ const router = express.Router()
 const { NICE } = require('../api/index')
 
 router.post('/auth', async (req, res) => {
-  console.log('post nice/auth')
   const resData = await NICE.getTEIData()
   res.json(resData)
 })
 
 router.post('/decrypt', async (req, res) => {
-  console.log('post nice/decrypt')
   const data = await NICE.decryptURL(req.body.url)
   const resData = {
     name: data.name,
     birth: data.birthdate.slice(-6),
     gender: data.gender,
-    mobileNo: data.mobile_no,
+    mobileNo: data.mobileno,
   }
   res.json(resData)
 })
