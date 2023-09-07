@@ -36,12 +36,14 @@ const userCreate = async (req, res) => {
         token,
       },
     }
+    console.log(resContent)
     res.send(resContent)
   } catch (err) {
     const resContent = {
       err: true,
       msg: {},
     }
+    console.log(err)
     res.send(resContent)
   }
 }
