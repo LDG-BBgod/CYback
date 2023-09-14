@@ -4,6 +4,8 @@ const express = require('express')
 const cors = require('cors')
 
 const userRouter = require('./routers/users')
+const hospitalRouter = require('./routers/hospital')
+
 const phoneVerifyRouter = require('./routers/phoneVerify')
 const niceRouter = require('./routers/nice')
 const emailVerifyRouter = require('./routers/emailVerify')
@@ -21,6 +23,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', userRouter)
+app.use('/hospital', hospitalRouter)
+
 app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
 app.use('/email', emailVerifyRouter)

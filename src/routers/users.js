@@ -4,12 +4,6 @@ const { User } = require('../api')
 
 const router = express.Router()
 
-// 필요없는부분
-router.get('/', async (req, res) => {
-  console.log('리퀘옴')
-  res.send('응답완료')
-})
-
 router.post('/create', User.userCreate)
 router.post('/read', User.userRead)
 router.post('/update', User.userUpdate)
