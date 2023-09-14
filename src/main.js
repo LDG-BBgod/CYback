@@ -11,7 +11,7 @@ const niceRouter = require('./routers/nice')
 const emailVerifyRouter = require('./routers/emailVerify')
 
 const app = express()
-const PORT = 5000
+const PORT = 4000
 const corsOptions = {
   origin: '*',
 }
