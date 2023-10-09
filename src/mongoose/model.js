@@ -19,7 +19,7 @@ const model = (() => {
   for (const key in schema) {
     models[key] = mongoose.model(key, schema[key])
   }
-
+  console.log('완료')
   return models
 })()
 
