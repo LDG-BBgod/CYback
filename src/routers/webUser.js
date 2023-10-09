@@ -5,15 +5,18 @@ const { checkToken, getToken } = require('../api/token')
 const router = express.Router()
 
 router.post('/login', async (req, res) => {
+  console.log('post webUser/login')
+
   const { id, pw } = req.body
   const resContent = {
     err: false,
     msg: {
-      success: false
+      success: false,
     },
   }
   const isExistHospital = await Hospital.findOne({ userId: id })
   const isExistCenter = await Center.findOne({ userId: id })
+  console.log(isExistHospital)
   if (isExistHospital) {
     if (isExistHospital.authenticate(pw)) {
       const token = getToken(id)
@@ -27,7 +30,7 @@ router.post('/login', async (req, res) => {
       }
     } else {
       resContent.msg = {
-        success: false
+        success: false,
       }
     }
   } else if (isExistCenter) {
@@ -43,7 +46,7 @@ router.post('/login', async (req, res) => {
       }
     } else {
       resContent.msg = {
-        success: false
+        success: false,
       }
     }
   }
