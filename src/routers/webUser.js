@@ -14,7 +14,7 @@ router.post('/login', async (req, res) => {
       success: false,
     },
   }
-  console.log(Hospital)
+  console.log(await Hospital.findOne({userId: id}))
   // let isExistHospital = null
   // try {
   //   isExistHospital = await Hospital.findOne({ userId: id })

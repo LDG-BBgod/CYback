@@ -14,7 +14,6 @@ const model = (() => {
       useUnifiedTopology: true,
     }
   )
-  console.log('연결완료')
 
   const models = {}
   for (const key in schema) {
