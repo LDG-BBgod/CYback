@@ -7,6 +7,7 @@ const SENS = require('./sens')
 const NICE = require('./nice')
 const SENDEMAIL = require('./sendEmail')
 
+
 module.exports = {
   User,
   Hospital,
