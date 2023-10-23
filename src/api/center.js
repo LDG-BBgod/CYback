@@ -18,7 +18,7 @@ const centerCreate = async (req, res) => {
   } = req.body
   const token = getToken(id)
   const isExist1 = await Hospital.findOne({ userId: id })
-  const isExist2 = await Center.findOne({userId: id})
+  const isExist2 = await Center.findOne({ userId: id })
 
   if (isExist1 || isExist2) {
     const resContent = {
@@ -64,6 +64,11 @@ const centerCreate = async (req, res) => {
   }
 }
 
+const centerRead = async (req, res) => {
+  console.log('post center/read')
+}
+
 module.exports = {
   centerCreate,
+  centerRead,
 }

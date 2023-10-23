@@ -17,9 +17,12 @@ router.post('/login', async (req, res) => {
 
   const isExistHospital = await Hospital.findOne({ userId: id })
   const isExistCenter = await Center.findOne({ userId: id })
-  console.log(isExistHospital)
+
   if (isExistHospital) {
-    if (isExistHospital.authenticate(pw)) {
+    if (
+      isExistHospital.authenticate(pw) &&
+      isExistHospital.allowed === 'true'
+    ) {
       const token = getToken(id)
       isExistHospital.token = token
       await isExistHospital.save()
@@ -35,7 +38,7 @@ router.post('/login', async (req, res) => {
       }
     }
   } else if (isExistCenter) {
-    if (isExistCenter.authenticate(pw)) {
+    if (isExistCenter.authenticate(pw) && isExistCenter.allowed === 'true') {
       const token = getToken(id)
       isExistCenter.token = token
       await isExistCenter.save()

@@ -9,16 +9,30 @@ const router = express.Router()
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      done(null, 'upload/hospital/')
+      done(null, 'upload/hospital/poster/')
     },
     filename(req, file, done) {
-      done(null, Date.now() + '-' + uuidv4() + '-' + file.originalname)
+      done(null, Date.now() + '-' + uuidv4() + '^' + file.originalname)
     },
   }),
   limits: { fileSize: 10 * 1024 * 1024 }, // 10메가로 용량 제한
+  fileFilter(req, file, done) {
+    if (file.mimetype.lastIndexOf('image') > -1) {
+      //파일 허용
+      done(null, true)
+    } else {
+      //파일 거부
+      done(null, false)
+    }
+  },
 })
 router.post('/create', Hospital.hospitalCreate)
-// router.post('/update', upload.array('images'), Hospital.hospitalUpdate)
-
+router.post('/read', Hospital.hospitalRead)
+router.post(
+  '/updateImgIntro',
+  upload.array('images'),
+  Hospital.hospitalUpdateImgIntro
+)
+router.post('/update', Hospital.hospitalUpdate)
 
 module.exports = router

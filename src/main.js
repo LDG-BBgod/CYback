@@ -18,6 +18,7 @@ const corsOptions = {
   origin: '*',
 }
 app.use(express.json())
+app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 app.use(cors(corsOptions))
 
 app.get('/', (req, res) => {
@@ -32,6 +33,8 @@ app.use('/hospital', hospitalRouter)
 app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
 app.use('/email', emailVerifyRouter)
+
+app.use('/upload/hospital/poster', express.static('upload/hospital/poster'))
 
 app.use((err, req, res, next) => {
   res.statusCode = err.statusCode || 500
