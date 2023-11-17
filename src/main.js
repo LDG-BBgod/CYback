@@ -35,7 +35,7 @@ app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
 app.use('/email', emailVerifyRouter)
 
-app.use('/upload', express.static(path.join(__dirname, 'upload')))
+app.use('/upload', express.static(path.join(__dirname, '../upload')))
 
 app.use((err, req, res, next) => {
   res.statusCode = err.statusCode || 500

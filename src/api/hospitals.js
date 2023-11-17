@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const { Hospital, Center } = require('../mongoose/model')
 const { checkToken, getToken } = require('./token')
 
@@ -109,10 +110,11 @@ const hospitalUpdateImgIntro = async (req, res) => {
     const oldImageUrls = hospital.imageUrls || []
     if (oldImageUrls.length > 0) {
       for (const oldImageUrl of oldImageUrls) {
+        const removeUrl = path.join(__dirname, '../../', oldImageUrl)
         try {
-          fs.unlinkSync(oldImageUrl)
+          fs.unlinkSync(removeUrl)
         } catch (err) {
-          console.error(`삭제실패`)
+          console.error(`삭제기능오류`)
         }
       }
     }
