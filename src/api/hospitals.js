@@ -100,7 +100,9 @@ const hospitalUpdateImgIntro = async (req, res) => {
   console.log('post hospital/updateImgIntro')
 
   const { userId, token, introduction } = JSON.parse(req.body.jsonField)
-  const imageUrls = req.files.map((file) => file.path)
+  const imageUrls = req.files.map((file) =>
+    file.path.substring(file.path.indexOf('upload'))
+  )
   const hospital = await Hospital.findOne({ userId })
 
   if (checkToken(token, hospital.token)) {
@@ -114,7 +116,6 @@ const hospitalUpdateImgIntro = async (req, res) => {
         }
       }
     }
-
     hospital.introduction = introduction
     hospital.imageUrls = imageUrls
     await hospital.save()

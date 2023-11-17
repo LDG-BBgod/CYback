@@ -1,5 +1,6 @@
 const express = require('express')
 const multer = require('multer')
+const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 
 const { Hospital } = require('../api')
@@ -9,10 +10,11 @@ const router = express.Router()
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      done(null, './upload/hospital/poster/')
+      const uploadPath = path.join(__dirname, '../../upload/hospital/poster/')
+      done(null, uploadPath)
     },
     filename(req, file, done) {
-      done(null, Date.now() + '-' + uuidv4() + '^' + 123)
+      done(null, Date.now() + '-' + uuidv4() + '^' + file.originalname)
     },
   }),
   limits: { fileSize: 10 * 1024 * 1024 }, // 10메가로 용량 제한
