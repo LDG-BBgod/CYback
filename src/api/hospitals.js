@@ -116,7 +116,6 @@ const hospitalUpdateImgIntro = async (req, res) => {
         }
       }
     }
-    console.log(imageUrls)
     hospital.introduction = introduction
     hospital.imageUrls = imageUrls
     await hospital.save()

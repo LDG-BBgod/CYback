@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 const express = require('express')
 const cors = require('cors')
+const path = require('path');
 
 const userRouter = require('./routers/users')
 const webUserRouter = require('./routers/webUser')
@@ -34,7 +35,7 @@ app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
 app.use('/email', emailVerifyRouter)
 
-app.use('/upload/hospital/poster', express.static('upload/hospital/poster'))
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 
 app.use((err, req, res, next) => {
   res.statusCode = err.statusCode || 500
