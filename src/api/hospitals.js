@@ -110,7 +110,7 @@ const hospitalUpdateImgIntro = async (req, res) => {
         try {
           fs.unlinkSync(oldImageUrl)
         } catch (err) {
-          console.error(`Error deleting file: ${oldImageUrl}`, err)
+          console.error(`삭제실패`)
         }
       }
     }
