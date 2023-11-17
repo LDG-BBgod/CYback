@@ -11,6 +11,7 @@ const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
       const uploadPath = path.join(__dirname, '../../upload/hospital/poster/')
+      console.log(uploadPath)
       done(null, uploadPath)
     },
     filename(req, file, done) {
