@@ -2,12 +2,13 @@
 /* eslint-disable no-console */
 const express = require('express')
 const cors = require('cors')
-const path = require('path');
+const path = require('path')
 
 const userRouter = require('./routers/users')
 const webUserRouter = require('./routers/webUser')
 const hospitalRouter = require('./routers/hospital')
-// const centerRouter = require('./routers/center')
+const hospitalMemberRouter = require('./routers/hospitalMember')
+const reserveRouter = require('./routers/reserve')
 
 const phoneVerifyRouter = require('./routers/phoneVerify')
 const niceRouter = require('./routers/nice')
@@ -29,7 +30,8 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter)
 app.use('/webUser', webUserRouter)
 app.use('/hospital', hospitalRouter)
-// app.use('/center', centerRouter)
+app.use('/hospitalMember', hospitalMemberRouter)
+app.use('/reserve', reserveRouter)
 
 app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)

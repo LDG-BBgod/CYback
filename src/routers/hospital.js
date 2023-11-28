@@ -2,7 +2,6 @@ const express = require('express')
 const multer = require('multer')
 const path = require('path')
 const { v4: uuidv4 } = require('uuid')
-
 const { Hospital } = require('../api')
 
 const router = express.Router()
@@ -28,14 +27,20 @@ const upload = multer({
   },
 })
 router.post('/create', Hospital.hospitalCreate)
+router.post('/members', Hospital.hospitalMember)
 router.post('/read', Hospital.hospitalRead)
+
 router.post(
   '/updateImgIntro',
   upload.array('images'),
   Hospital.hospitalUpdateImgIntro
 )
 router.post('/update', Hospital.hospitalUpdate)
-
 router.post('/updateImgIntro', upload.array('images'))
+
+router.post('/emailVerify', Hospital.hospitalEmailVerify)
+router.post('/emailCheck', Hospital.hospitalEmailCheck)
+router.post('/phoneVerify', Hospital.hospitalPhoneVerify)
+router.post('/phoneCheck', Hospital.hospitalPhoneCheck)
 
 module.exports = router

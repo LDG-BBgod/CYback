@@ -1,6 +1,8 @@
 module.exports = {
   extends: ['airbnb-base', 'plugin:node/recommended', 'prettier'],
   rules: {
+    'import/newline-after-import': 'off',
+    'prefer-const': 'off',
     'no-console': 'off',
     'no-else-return': 'off',
     'no-restricted-syntax': 'off',

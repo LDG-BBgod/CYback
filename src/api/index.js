@@ -1,7 +1,8 @@
 // DB
 const User = require('./users')
 const Hospital = require('./hospitals')
-const Center = require('./center')
+const HospitalMember = require('./hospitalMember')
+const Reserve = require('./reserve')
 
 // API
 const SENS = require('./sens')
@@ -12,7 +13,8 @@ const SENDEMAIL = require('./sendEmail')
 module.exports = {
   User,
   Hospital,
-  Center,
+  HospitalMember,
+  Reserve,
 
   SENS,
   NICE,

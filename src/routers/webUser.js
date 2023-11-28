@@ -1,5 +1,5 @@
 const express = require('express')
-const { Hospital, Center } = require('../mongoose/model')
+const { Hospital, HospitalMember } = require('../mongoose/model')
 const { checkToken, getToken } = require('../api/token')
 
 const router = express.Router()
@@ -15,8 +15,9 @@ router.post('/login', async (req, res) => {
     },
   }
 
+  // 병원, 센터, 각각의 간호사들 어떻게 구분할건지 로그인 로직 재작성
   const isExistHospital = await Hospital.findOne({ userId: id })
-  const isExistCenter = await Center.findOne({ userId: id })
+  const isExistMember = await HospitalMember.findOne({ userId: id })
 
   if (isExistHospital) {
     if (
@@ -26,9 +27,17 @@ router.post('/login', async (req, res) => {
       const token = getToken(id)
       isExistHospital.token = token
       await isExistHospital.save()
+
+      const OID = isExistHospital._id
+      const existtMember = await HospitalMember.find({ hospital: OID })
+      if (existtMember.length > 0) {
+        await HospitalMember.updateMany({ hospital: OID }, { $set: { token } })
+      }
+
       resContent.msg = {
         success: true,
-        type: 'hospital',
+        type: 'leader',
+        OID: OID,
         id,
         token,
       }
@@ -37,21 +46,29 @@ router.post('/login', async (req, res) => {
         success: false,
       }
     }
-  } else if (isExistCenter) {
-    if (isExistCenter.authenticate(pw) && isExistCenter.allowed === 'true') {
-      const token = getToken(id)
-      isExistCenter.token = token
-      await isExistCenter.save()
+  } else if (isExistMember) {
+    if (isExistMember.authenticate(pw) && isExistMember.allowed === 'true') {
+      const existHospital = await Hospital.findOne({
+        _id: isExistMember.hospital,
+      })
+      const token = existHospital.token
+      isExistMember.token = token
+      await isExistMember.save()
       resContent.msg = {
         success: true,
-        type: 'center',
-        id,
-        token,
+        type: 'member',
+        OID: existHospital._id,
+        id: existHospital.userId,
+        token
       }
     } else {
       resContent.msg = {
         success: false,
       }
+    }
+  } else {
+    resContent.msg = {
+      success: false,
     }
   }
   res.send(resContent)

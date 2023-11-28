@@ -11,7 +11,7 @@ function getSigningKey() {
   const SecretKey = 'O8DxN19g9zaRZ335Wgx5FCzQfXPIbZfkLR5dng4C' //변경예정
 
   const method = 'POST'
-  const uri = '/sms/v2/services/ncp:sms:kr:289661419957:gabot/messages'
+  const uri = '/sms/v2/services/ncp:sms:kr:289661419957:gabot/messages' //변경예정
 
   const message = `${method} ${uri}\n${timestamp}\n${AccessKey}`
   const signingKey = crypto
@@ -29,7 +29,7 @@ async function sendSENS(phone, content) {
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
     'x-ncp-apigw-timestamp': timestamp,
-    'x-ncp-iam-access-key': 'Lyf4UlLYnAqvptuxG9Oq',
+    'x-ncp-iam-access-key': 'Lyf4UlLYnAqvptuxG9Oq', //변경예정
     'x-ncp-apigw-signature-v2': signingKey,
   }
 

@@ -1,11 +1,11 @@
 const User = require('./users')
-const Center = require('./centers')
 const Hospital = require('./hospitals')
+const HospitalMember = require('./hospitalMember')
 const Reserve = require('./reserves')
 
 module.exports = {
   User,
-  Center,
   Hospital,
+  HospitalMember,
   Reserve,
 }
