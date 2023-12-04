@@ -21,12 +21,16 @@ const Hospital = new mongoose.Schema({
   register: { type: Date, default: Date.now, required: true },
 
   // 회원가입후
+  // 사용자 권한
   allowed: { type: String, default: 'false', required: true },
   initSetting: { type: String, default: 'false', required: true },
-  introduction: { type: String, default: '', required: false },
-  imageUrls: { type: Array, default: '', required: false },
+  isReserveSetted: { type: String, default: 'false', required: true },
 
-  // 예약관리
+  // 프로필 관리
+  introduction: { type: String, default: '', required: false },
+  imageUrls: { type: Array, default: [], required: false },
+
+  // 예약 관리
   timeSection: { type: String, default: '', required: false },
   daySH: { type: String, default: '', required: false },
   daySM: { type: String, default: '', required: false },

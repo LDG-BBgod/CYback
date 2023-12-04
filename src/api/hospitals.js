@@ -97,6 +97,7 @@ const hospitalRead = async (req, res) => {
       doctorPhone: hospital.doctorPhone,
       email: hospital.email,
 
+      isReserveSetted: hospital.isReserveSetted,
       initSetting: hospital.initSetting,
       introduction: hospital.introduction,
       imageUrls: hospital.imageUrls,
@@ -203,8 +204,9 @@ const hospitalUpdate = async (req, res) => {
           lunchSM,
           lunchEH,
           lunchEM,
-         } = req.body.data
+        } = req.body.data
         hospital.initSetting = 'true'
+        hospital.isReserveSetted = 'true'
         hospital.timeSection = timeSection
         hospital.daySH = daySH
         hospital.daySM = daySM
@@ -349,13 +351,53 @@ const hospitalPhoneCheck = async (req, res) => {
   res.send(resContent)
 }
 
+// App용
+const hospitalList = async (req, res) => {
+  console.log('post hospital/hospitalList')
+
+  let resContent = {
+    err: false,
+    msg: {},
+  }
+  try {
+    const hospitalArr = await Hospital.find().select(
+      'hospitalName hospitalPhone address1 address2 address3 imageUrls'
+    )
+    resContent.msg.list = hospitalArr
+  } catch (err) {
+    resContent.err = true
+  }
+  res.send(resContent)
+}
+const hospitalInfo = async (req, res) => {
+  console.log('post hospital/hospitalInfo')
+
+  const { OID } = req.body
+  let resContent = {
+    err: false,
+    msg: {},
+  }
+  try {
+    const hospitalData = await Hospital.findOne({ _id: OID }).select(
+      'imageUrls hospitalName address2 address3 hospitalPhone introduction doctorName licenseType isReserveSetted'
+    )
+    resContent.msg.data = hospitalData
+  } catch (err) {
+    resContent.err = true
+  }
+  res.send(resContent)
+}
+
 module.exports = {
+  // Web
   hospitalCreate,
   hospitalMember,
   hospitalRead,
   hospitalUpdateImgIntro,
   hospitalUpdate,
-
+  // App
+  hospitalList,
+  hospitalInfo,
   // 이메일, 핸드폰 인증
   hospitalEmailVerify,
   hospitalEmailCheck,

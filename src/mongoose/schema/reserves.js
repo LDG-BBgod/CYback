@@ -6,7 +6,7 @@ const Reserve = new mongoose.Schema({
   name: { type: String, default: '', required: true },
   birth: { type: String, default: '', required: true },
   phone: { type: String, default: '', required: true },
-  date: { type: String, default: '', required: true },
+  date: { type: Date, required: true },
   time: { type: String, default: '', required: true },
   register: { type: Date, default: Date.now, required: true },
 })
