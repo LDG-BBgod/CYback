@@ -40,6 +40,7 @@ router.post('/updateImgIntro', upload.array('images'))
 
 router.get('/list', Hospital.hospitalList)
 router.post('/info', Hospital.hospitalInfo)
+router.post('/timeTable', Hospital.hospitalTimeTable)
 
 router.post('/emailVerify', Hospital.hospitalEmailVerify)
 router.post('/emailCheck', Hospital.hospitalEmailCheck)

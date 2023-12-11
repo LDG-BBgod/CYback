@@ -388,6 +388,25 @@ const hospitalInfo = async (req, res) => {
   res.send(resContent)
 }
 
+const hospitalTimeTable = async (req, res) => {
+  console.log('post hospital/hospitalTimeTable')
+
+  const { OID } = req.body
+  let resContent = {
+    err: false,
+    msg: {},
+  }
+  try {
+    const hospitalData = await Hospital.findOne({ _id: OID }).select(
+      'timeSection daySH daySM dayEH dayEM skipWeek1 week1SH week1SM week1EH week1EM skipWeek2 week2SH week2SM week2EH week2EM skipLunch lunchSH lunchSM lunchEH lunchEM'
+    )
+    resContent.msg.data = hospitalData
+  } catch (err) {
+    resContent.err = true
+  }
+  res.send(resContent)
+}
+
 module.exports = {
   // Web
   hospitalCreate,
@@ -398,6 +417,7 @@ module.exports = {
   // App
   hospitalList,
   hospitalInfo,
+  hospitalTimeTable,
   // 이메일, 핸드폰 인증
   hospitalEmailVerify,
   hospitalEmailCheck,

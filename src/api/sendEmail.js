@@ -10,9 +10,19 @@ const transporter = nodemailer.createTransport({
   },
 })
 
+// const transporter = nodemailer.createTransport({
+//   service: 'naverWorks',
+//   host: 'smtp.worksmobile.com',
+//   port: 465,
+//   auth: {
+//     user: 'padzz321@chiyoom.com',
+//     pass: 'z1gDvElWuibF',
+//   },
+// })
+
 const sendEmail = async (email, authNum) => {
   const mailOptions = {
-    from: 'na841@naver.com',
+    from: 'padzz321@chiyoom.com',
     to: email,
     subject: '치윰 이메일 인증입니다.',
     html: `
@@ -48,7 +58,7 @@ const sendEmail = async (email, authNum) => {
 
 const sendAddMembers = async (email, OID) => {
   const mailOptions = {
-    from: 'na841@naver.com',
+    from: 'padzz321@chiyoom.com',
     to: email,
     subject: '구성원 회원가입 안내메일 입니다.',
     html: `

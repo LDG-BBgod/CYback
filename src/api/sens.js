@@ -5,8 +5,7 @@ sendMessageFunc(phone, content) 문자발송
 const crypto = require('crypto')
 const axios = require('axios')
 
-function getSigningKey() {
-  const timestamp = Date.now().toString()
+function getSigningKey(timestamp) {
   const AccessKey = 'Lyf4UlLYnAqvptuxG9Oq' //변경예정
   const SecretKey = 'O8DxN19g9zaRZ335Wgx5FCzQfXPIbZfkLR5dng4C' //변경예정
 
@@ -24,7 +23,7 @@ function getSigningKey() {
 
 async function sendSENS(phone, content) {
   const timestamp = Date.now().toString()
-  const signingKey = getSigningKey()
+  const signingKey = getSigningKey(timestamp)
 
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',

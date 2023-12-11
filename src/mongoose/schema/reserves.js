@@ -8,6 +8,7 @@ const Reserve = new mongoose.Schema({
   phone: { type: String, default: '', required: true },
   date: { type: Date, required: true },
   time: { type: String, default: '', required: true },
+  state: { type: String, default: '', required: true },
   register: { type: Date, default: Date.now, required: true },
 })
 

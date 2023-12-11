@@ -13,6 +13,7 @@ const reserveRouter = require('./routers/reserve')
 const phoneVerifyRouter = require('./routers/phoneVerify')
 const niceRouter = require('./routers/nice')
 const emailVerifyRouter = require('./routers/emailVerify')
+const weatherRouter = require('./routers/weather')
 
 const app = express()
 const PORT = 4000
@@ -36,6 +37,7 @@ app.use('/reserve', reserveRouter)
 app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
 app.use('/email', emailVerifyRouter)
+app.use('/weather', weatherRouter)
 
 app.use('/upload', express.static(path.join(__dirname, '../upload')))
 

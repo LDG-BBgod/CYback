@@ -8,6 +8,7 @@ const changeKoreaDate = (Y, M, D) => {
   return koreaDate
 }
 
+// Web //
 const reserveCreate = async (req, res) => {
   console.log('post reserve/create')
 
@@ -18,18 +19,31 @@ const reserveCreate = async (req, res) => {
   }
 
   try {
-    const date = changeKoreaDate(Y, M, D)
-    const newReserve = await Reserve({
+    const koreaDate = changeKoreaDate(Y, M, D)
+    const reserve = await Reserve.findOne({
       hospital: OID,
-      name,
-      birth,
-      phone,
-      date,
-      time,
+      date: koreaDate,
+      time: time,
     })
-    await newReserve.save()
-    resContent.msg = {
-      success: true,
+    if (!reserve) {
+      const newReserve = await Reserve({
+        hospital: OID,
+        name,
+        birth,
+        phone,
+        date: koreaDate,
+        time,
+        state: '확인',
+      })
+      await newReserve.save()
+      resContent.msg = {
+        success: true,
+      }
+    } else {
+      resContent.msg = {
+        success: false,
+        text: '이미 예약된 시간입니다.',
+      }
     }
   } catch (err) {
     resContent.err = true
@@ -107,7 +121,7 @@ const reserveDelete = async (req, res) => {
     await Reserve.deleteOne({
       hospital: OID,
       date: koreaDate,
-      time
+      time,
     }).then(() => {
       resContent.msg = {
         success: true,
@@ -120,9 +134,111 @@ const reserveDelete = async (req, res) => {
   res.send(resContent)
 }
 
+const reserveSubmit = async (req, res) => {
+  console.log('post reserve/submit')
+  const { OID, Y, M, D, time } = req.body
+  const resContent = {
+    err: false,
+    msg: {},
+  }
+  try {
+    const koreaDate = changeKoreaDate(Y, M, D)
+    const reserve = await Reserve.findOne({
+      hospital: OID,
+      date: koreaDate,
+      time,
+    })
+    reserve.state = '확인'
+    await reserve.save()
+    resContent.msg.success = true
+  } catch (err) {
+    resContent.err = true
+    console.error(err)
+  }
+  res.send(resContent)
+}
+
+// App //
+const reserveReadDay = async (req, res) => {
+  console.log('post reserve/readDay')
+
+  const { OID, Y, M, D } = req.body
+  const resContent = {
+    err: false,
+    msg: {},
+  }
+  const koreaDate = changeKoreaDate(Y, M, D)
+  try {
+    const resArr = []
+    await Reserve.find({
+      hospital: OID,
+      date: koreaDate,
+    }).then((data) => {
+      data.forEach((element) => {
+        resArr.push(element.time)
+      })
+      resContent.msg = {
+        reserveArr: resArr,
+      }
+    })
+  } catch (err) {
+    resContent.err = true
+    console.error(err)
+  }
+  res.send(resContent)
+}
+
+const reserveAppCreate = async (req, res) => {
+  console.log('post reserve/appCreate')
+
+  const { OID, Y, M, D, time, name, birth, phone } = req.body
+  const resContent = {
+    err: false,
+    msg: {},
+  }
+
+  try {
+    const koreaDate = changeKoreaDate(Y, M, D)
+    const reserve = await Reserve.findOne({
+      hospital: OID,
+      date: koreaDate,
+      time: time,
+    })
+    if (!reserve) {
+      const newReserve = await Reserve({
+        hospital: OID,
+        name,
+        birth,
+        phone,
+        date: koreaDate,
+        time,
+        state: '대기',
+      })
+      await newReserve.save()
+      resContent.msg = {
+        success: true,
+      }
+    } else {
+      resContent.msg = {
+        success: false,
+        text: '이미 예약된 시간입니다.',
+      }
+    }
+  } catch (err) {
+    resContent.err = true
+  }
+
+  res.send(resContent)
+}
+
 module.exports = {
+  // Web
   reserveCreate,
   reserveRead,
   reserveReadOne,
   reserveDelete,
+  reserveSubmit,
+  // App
+  reserveReadDay,
+  reserveAppCreate,
 }
