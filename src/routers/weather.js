@@ -26,9 +26,7 @@ router.get('/getLocalWeather', async (req, res) => {
     err: false,
     msg: {},
   }
-
-  // const userIP = req.ip  //배포시 변경
-  const userIP = '211.194.132.167'
+  const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   const timestamp = Date.now().toString()
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
@@ -47,10 +45,9 @@ router.get('/getLocalWeather', async (req, res) => {
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=e7e9d7b3fd059da1c7d2afa7def8ae46&units=metric`
     )
     console.log(weatherRes.data.weather[0].main)
-    resContent.msg.weather = weatherRes.data.weather[0].main
-    // Clear, Rain, Snow, Clouds, others...
+    resContent.msg.weather = weatherRes.data.weather[0].main // weather = Clear, Rain, Snow, Clouds, others...
   } catch (err) {
-    console.error(err)
+    console.error('지역날씨 가져오기 실패')
     resContent.err = true
   }
 
@@ -58,4 +55,3 @@ router.get('/getLocalWeather', async (req, res) => {
 })
 
 module.exports = router
-

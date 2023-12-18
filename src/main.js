@@ -9,6 +9,7 @@ const webUserRouter = require('./routers/webUser')
 const hospitalRouter = require('./routers/hospital')
 const hospitalMemberRouter = require('./routers/hospitalMember')
 const reserveRouter = require('./routers/reserve')
+const userSymptomRouter = require('./routers/userSymptom')
 
 const phoneVerifyRouter = require('./routers/phoneVerify')
 const niceRouter = require('./routers/nice')
@@ -33,6 +34,7 @@ app.use('/webUser', webUserRouter)
 app.use('/hospital', hospitalRouter)
 app.use('/hospitalMember', hospitalMemberRouter)
 app.use('/reserve', reserveRouter)
+app.use('/symptom', userSymptomRouter)
 
 app.use('/phone', phoneVerifyRouter)
 app.use('/nice', niceRouter)
@@ -49,3 +51,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`PORT = ${PORT}`)
 })
+app.listen(PORT, '0.0.0.0')
